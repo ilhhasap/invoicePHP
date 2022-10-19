@@ -53,7 +53,12 @@
                     <h2 class="fw-bold" style="color: #333333">Invoice #10</h2>
                 </div>
                 <div class="">
-                    <h5 class="fw-bold mb-1 align-middle" style="color: #1e1e1e"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-geo-alt-fill text-danger me-2" viewBox="0 0 16 16"> <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" /> </svg></span>Zhido Lariz - Surakarta</h5>
+                    <h5 class="fw-bold mb-1 align-middle" style="color: #1e1e1e"><span><svg
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                class="bi bi-geo-alt-fill text-danger me-2" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+                            </svg></span>Zhido Lariz - Surakarta</h5>
                 </div>
                 <div class="">
                     <p class="" style="color: #333333">TOKO AKSESORIS & HARDWARE KOMPUTER</p>
@@ -78,17 +83,28 @@
                     <th scope="col" class="px-4 py-3">Nama Barang</th>
                     <th scope="col" class="px-4 py-3">Harga Satuan</th>
                     <th scope="col" class="px-4 py-3 text-center">Jumlah</th>
+                    <th scope="col" class="px-4 py-3 text-center">Potongan</th>
                     <th scope="col" class="px-4 py-3 text-end">Total bayar</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach($datas as $data) : ?>
                 <?php $total = $data['jumlah'] * $data['hargaSatuan'];?>
+                <?php if ( $data['jumlah'] > 4 ) {
+                    $potongan[] = ($data['hargaSatuan'] * 0.1) * ($data['jumlah'] - 4);
+                    $totalPotongan = array_sum($potongan);
+                    $totalBayar = $total - $totalPotongan;
+                } else {
+                    $totalPotongan = 0;
+                    $totalBayar = $total - $totalPotongan;
+                }?>
                 <tr>
                     <td scope="row" class="px-4 py-3"><?= $data['namaBarang']?></td>
                     <td class="px-4 py-3">Rp <?= number_format($data['hargaSatuan'])?></td>
                     <td class="px-4 py-3 text-center"><?= number_format($data['jumlah'])?></td>
-                    <td class="px-4 py-3 text-end">Rp <?= number_format($total);?></td>
+                    <td class="px-4 py-3 text-center"><span class="badge text-bg-danger">-
+                            Rp<?= number_format($totalPotongan)?></span></td>
+                    <td class="px-4 py-3 text-end">Rp <?= number_format($totalBayar);?></td>
                 </tr>
                 <?php $totalAll[] = $total; $totals = array_sum($totalAll);?>
                 <?php endforeach;?>
@@ -98,12 +114,13 @@
                     <td class="px-4 py-3"> </td>
                     <td class="px-4 py-3"> </td>
                     <td class="px-4 py-3"> </td>
+                    <td class="px-4 py-3"> </td>
                 </tr>
 
             </tbody>
             <tfoot>
                 <tr>
-                    <th scope="row" colspan="3" class="px-4 py-3">Total : </th>
+                    <th scope="row" colspan="4" class="px-4 py-3">Total : </th>
                     <th class="px-4 py-3 table-warning text-end">Rp <?= number_format($totals);?></th>
                 </tr>
             </tfoot>

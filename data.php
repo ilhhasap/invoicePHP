@@ -12,7 +12,7 @@
         [
             'namaBarang' => 'Printer Inkjet',
             'hargaSatuan' => 1300000,
-            'jumlah' => 3
+            'jumlah' => 8
         ],
         [
             'namaBarang' => 'Scanner HP',
