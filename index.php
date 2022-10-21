@@ -91,8 +91,9 @@
                 <?php foreach($datas as $data) : ?>
                 <?php $total = $data['jumlah'] * $data['hargaSatuan'];?>
                 <?php if ( $data['jumlah'] > 4 ) {
-                    $potongan[] = ($data['hargaSatuan'] * 0.1) * ($data['jumlah'] - 4);
-                    $totalPotongan = array_sum($potongan);
+                    $potongan = 0;
+                    $potongan = ($data['hargaSatuan'] * 0.1) * ($data['jumlah'] - 4);
+                    $totalPotongan = $potongan;
                     $totalBayar = $total - $totalPotongan;
                 } else {
                     $totalPotongan = 0;

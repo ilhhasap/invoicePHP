@@ -17,7 +17,7 @@
         [
             'namaBarang' => 'Scanner HP',
             'hargaSatuan' => 735000,
-            'jumlah' => 1
+            'jumlah' => 10
         ],
     ]
 
